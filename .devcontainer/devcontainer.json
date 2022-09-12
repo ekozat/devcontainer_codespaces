@@ -1,0 +1,47 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.238.1/containers/ubuntu
+{
+  "name": "Ubuntu",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick an Ubuntu version: jammy / ubuntu-22.04, focal / ubuntu-20.04, bionic /ubuntu-18.04
+    // Use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon.
+    "args": { "VARIANT": "ubuntu-20.04" }
+  },
+  "hostRequirements": {"memory": "8gb"},
+
+  // Can't resolve 'postcss-selector-parser' for "bradlc.vscode-tailwindcss",
+  "extensions": [
+    "eamodio.gitlens",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "octref.vetur",
+    "dariofuzinato.vue-peek",
+    "heybourn.headwind",
+    "alexkrechik.cucumberautocomplete",
+    "bradlc.vscode-tailwindcss"
+  ],
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [8080],
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "uname -a",
+
+  "onCreateCommand": "git submodule update --init && npm install && npm rebuild node-sass",
+  "updateContentCommand": "cp .env.codespace .env.development.local",
+
+  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode",
+  "features": {
+    "git": "latest",
+    "node": "14"
+  },
+  "portsAttributes": {
+    "8080": {
+      "label": "Dev",
+      "protocol": "https"
+    }
+  }
+}
+
